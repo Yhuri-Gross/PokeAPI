@@ -1,4 +1,4 @@
-<!-- src/app/home/home.page.html -->
+
 <ion-header>
   <ion-toolbar>
     <ion-title>Pokémon</ion-title>
@@ -7,7 +7,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let pokemon of pokemonList">
+    <ion-item *ngFor="let pokemon of pokemonList" [routerLink]="['/details', pokemon.name]">
       <ion-label>{{ pokemon.name | titlecase }}</ion-label>
     </ion-item>
   </ion-list>

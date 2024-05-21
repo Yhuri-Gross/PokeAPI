@@ -1,4 +1,3 @@
-// src/app/home/home.page.ts
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 
