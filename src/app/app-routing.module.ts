@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
+import { FavoriteListComponent } from './favorite-list/favorite-list.component';
+import { HomePage } from './home/home.page';
+import { DetailsPage } from './details/details.page'; 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
-  { path: 'details/:name', loadChildren: () => import('./details/details.module').then(m => m.DetailsPageModule) },
+  { path: 'home', component: HomePage },
+  { path: 'favorites', component: FavoriteListComponent },
+  { path: 'details/:name', component: DetailsPage }, 
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })
