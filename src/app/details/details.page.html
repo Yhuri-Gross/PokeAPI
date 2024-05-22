@@ -1,12 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{ pokemon?.name | titlecase }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleFavorite()">
+        <ion-icon slot="icon-only" [name]="isFavorite ? 'heart' : 'heart-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card *ngIf="pokemon">
-    <img *ngIf="pokemon.sprites?.front_default" [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
     <ion-card-header>
       <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
     </ion-card-header>
@@ -14,8 +19,8 @@
       <p><strong>Height:</strong> {{ pokemon.height }}</p>
       <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
       <p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
-      <p><strong>Abilities: </strong>
-        <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name + ", " }} </span>
+      <p><strong>Abilities:</strong>
+        <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }} </span>
       </p>
     </ion-card-content>
   </ion-card>

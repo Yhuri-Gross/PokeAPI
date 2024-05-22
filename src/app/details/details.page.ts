@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
+import { FavoriteService } from '../services/favorite.service';
 
 @Component({
   selector: 'app-details',
@@ -9,23 +10,37 @@ import { PokemonService } from '../services/pokemon.service';
 })
 export class DetailsPage implements OnInit {
   pokemon: any;
+  isFavorite: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
-  ) {}
+    private favoriteService: FavoriteService
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const name = this.route.snapshot.paramMap.get('name');
     if (name) {
-      this.pokemonService.getPokemonDetails(name).subscribe({
-        next: (data) => {
-          this.pokemon = data;
-        },
-        error: (err) => console.error('Erro ao carregar os detalhes do Pokémon', err)
+      this.pokemon = await this.pokemonService.getPokemonDetails(name).toPromise();
+      this.favoriteService.getFavorites().subscribe(favorites => {
+        this.isFavorite = favorites.includes(name);
       });
     } else {
       console.error('Nome do Pokémon não encontrado na URL.');
     }
   }
+
+  toggleFavorite() {
+    if (this.isFavorite) {
+      this.favoriteService.removeFavorite(this.pokemon.name).subscribe(() => {
+        this.isFavorite = false;
+      });
+    } else {
+      this.favoriteService.addFavorite(this.pokemon.name).subscribe(() => {
+        this.isFavorite = true;
+      });
+    }
+  }
+  
+  
 }
