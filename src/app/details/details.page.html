@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-card *ngIf="pokemon">
-    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
+    <img *ngIf="pokemon.sprites?.front_default" [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
     <ion-card-header>
       <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
     </ion-card-header>
@@ -14,8 +14,8 @@
       <p><strong>Height:</strong> {{ pokemon.height }}</p>
       <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
       <p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
-      <p><strong>Abilities:</strong> 
-        <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }} </span>
+      <p><strong>Abilities: </strong>
+        <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name + ", " }} </span>
       </p>
     </ion-card-content>
   </ion-card>

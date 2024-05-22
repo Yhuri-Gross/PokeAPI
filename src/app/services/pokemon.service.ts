@@ -1,6 +1,6 @@
-// src/app/services/pokemon.service.ts
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import axios from 'axios';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +8,13 @@ import axios from 'axios';
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  async getPokemonList(limit: number = 6) {
-    const response = await axios.get(`${this.apiUrl}/pokemon?limit=${limit}`);
-    return response.data.results;
+  getPokemonList(limit: number = 20, offset: number = 0): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/pokemon?limit=${limit}&offset=${offset}`);
   }
 
-  async getPokemonDetails(name: string) {
-    const response = await axios.get(`${this.apiUrl}/pokemon/${name}`);
-    return response.data;
+  getPokemonDetails(name: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/pokemon/${name}`);
   }
 }

@@ -12,15 +12,19 @@ export class DetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private pokemonService: PokemonService
-  ) { }
+    private pokemonService: PokemonService,
+  ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     const name = this.route.snapshot.paramMap.get('name');
     if (name) {
-      this.pokemon = await this.pokemonService.getPokemonDetails(name);
+      this.pokemonService.getPokemonDetails(name).subscribe({
+        next: (data) => {
+          this.pokemon = data;
+        },
+        error: (err) => console.error('Erro ao carregar os detalhes do Pokémon', err)
+      });
     } else {
-      // Trate o caso em que o nome é nulo, se necessário.
       console.error('Nome do Pokémon não encontrado na URL.');
     }
   }
