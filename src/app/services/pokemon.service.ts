@@ -10,7 +10,7 @@ export class PokemonService {
 
   constructor(private http: HttpClient) {}
 
-  getPokemonList(limit: number = 10, offset: number = 0): Observable<any> {
+  getPokemonList(limit: number = 6, offset: number = 0): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/pokemon?limit=${limit}&offset=${offset}`);
   }
 
@@ -26,7 +26,7 @@ export class PokemonService {
     );
   }
 
-  getPokemonListWithDetails(limit: number = 10, offset: number = 0): Observable<Pokemon[]> {
+  getPokemonListWithDetails(limit: number = 6, offset: number = 0): Observable<Pokemon[]> {
     return this.getPokemonList(limit, offset).pipe(
       mergeMap(response => {
         const requests: Observable<Pokemon>[] = response.results.map((pokemon: { name: string, url: string }) =>

@@ -16,12 +16,16 @@
       <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <p><strong>Id:</strong> {{ pokemon.id }}</p>
       <p><strong>Height:</strong> {{ pokemon.height }}</p>
       <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
       <p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
-      <p><strong>Abilities:</strong>
+      <p><strong>Abilities: </strong>
         <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }} </span>
       </p>
-    </ion-card-content>
+      <p><strong>Tipos: </strong>
+        <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span>
+      </p>   
+     </ion-card-content>
   </ion-card>
 </ion-content>

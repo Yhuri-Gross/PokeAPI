@@ -9,8 +9,9 @@ import { Pokemon } from '../models/pokemon.model';
 })
 export class HomePage implements OnInit {
   pokemons: Pokemon[] = [];
-  limit: number = 10;
+  limit: number = 6;
   offset: number = 0;
+  totalResults: number = 0;
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -22,6 +23,7 @@ export class HomePage implements OnInit {
     this.pokemonService.getPokemonListWithDetails(this.limit, this.offset).subscribe({
       next: (data) => {
         this.pokemons = this.pokemons.concat(data);
+        this.totalResults = data.length;
         if (event) {
           event.target.complete();
         }
@@ -30,8 +32,12 @@ export class HomePage implements OnInit {
     });
   }
 
-  loadMore(event: any) {
+  loadMore() {
     this.offset += this.limit;
-    this.loadPokemons(event);
+    this.loadPokemons();
+  }
+
+  hasMoreResults(): boolean {
+    return this.pokemons.length < this.totalResults;
   }
 }
