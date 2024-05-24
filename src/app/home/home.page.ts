@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { Pokemon } from '../models/pokemon.model';
 
 @Component({
   selector: 'app-home',
@@ -8,27 +8,30 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  pokemonList: any[] = [];
-  limit: number = 20;
+  pokemons: Pokemon[] = [];
+  limit: number = 10;
   offset: number = 0;
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private pokemonService: PokemonService) {}
 
   ngOnInit() {
-    this.loadPokemon();
+    this.loadPokemons();
   }
 
-  loadPokemon(event?: Event) {
-    this.pokemonService.getPokemonList(this.limit, this.offset).subscribe((response: any) => {
-      this.pokemonList = this.pokemonList.concat(response.results);
-      this.offset += this.limit;
-      if (event) {
-        (event as InfiniteScrollCustomEvent).target.complete();
-      }
+  loadPokemons(event?: any) {
+    this.pokemonService.getPokemonListWithDetails(this.limit, this.offset).subscribe({
+      next: (data) => {
+        this.pokemons = this.pokemons.concat(data);
+        if (event) {
+          event.target.complete();
+        }
+      },
+      error: (err) => console.error('Erro ao carregar a lista de Pokémon', err)
     });
   }
 
-  loadMore(event: InfiniteScrollCustomEvent) {
-    this.loadPokemon(event);
+  loadMore(event: any) {
+    this.offset += this.limit;
+    this.loadPokemons(event);
   }
 }
