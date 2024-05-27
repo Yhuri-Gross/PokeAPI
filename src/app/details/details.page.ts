@@ -49,5 +49,4 @@ export class DetailsPage implements OnInit {
     this.location.back();
   }
   
-  
 }

@@ -12,6 +12,7 @@
 
 ion-card {
   text-align: center;
+  --ion-background-color: rgba(255, 255, 255, 0.692);
   ion-img {
     width: 100%;
     height: auto;
@@ -19,4 +20,13 @@ ion-card {
   ion-card-title {
     font-size: 1.2em;
   }
+}
+
+ion-content{
+  --ion-background-color: aliceblue;
+}
+
+ion-toolbar{
+  --ion-background-color: slategrey;
+  color: azure;
 }

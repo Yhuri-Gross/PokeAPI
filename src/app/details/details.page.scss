@@ -13,8 +13,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #30a7d7;
+    p{
+        font-family: "Flexo-Medium", arial, sans-serif;
+        color: #212121;;
+        strong{
+            color: #fff;
+        }
+    }
+    
 }
 
 .pokemon-name{
     text-align: center;
+}
+
+.sprite{
+    background-color: gainsboro;
 }
