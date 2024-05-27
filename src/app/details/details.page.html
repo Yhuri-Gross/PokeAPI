@@ -10,22 +10,30 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="pokemon">
-    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}">
-    <ion-card-header>
-      <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p><strong>Id:</strong> {{ pokemon.id }}</p>
-      <p><strong>Height:</strong> {{ pokemon.height }}</p>
-      <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
-      <p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
-      <p><strong>Abilities: </strong>
-        <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }} </span>
-      </p>
-      <p><strong>Tipos: </strong>
-        <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span>
-      </p>   
-     </ion-card-content>
+  <ion-card class="card" *ngIf="pokemon">
+
+    <div>
+      <img [src]="pokemon.sprites.front_default" height="80%" alt="{{ pokemon.name }}">
+      <ion-card-header class="pokemon-name">
+        <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>
+      </ion-card-header>
+    </div>
+    <div class="info-pokemon">
+      <ion-card-content>
+        <p><strong>Id:</strong> {{ pokemon.id }}</p>
+        <p><strong>Height:</strong> {{ pokemon.height }}</p>
+        <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
+        <p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
+        <p><strong>Abilities: </strong>
+          <span *ngFor="let ability of pokemon.abilities">{{ ability.ability.name }} </span>
+        </p>
+        <p><strong>Tipos: </strong>
+          <span *ngFor="let type of pokemon.types">{{ type.type.name }} </span>
+        </p>   
+       </ion-card-content>
+    </div>
   </ion-card>
+  <div class="buttom-position">
+    <ion-button  (click)="goBack()"  fill="outline">Voltar</ion-button>
+  </div>
 </ion-content>

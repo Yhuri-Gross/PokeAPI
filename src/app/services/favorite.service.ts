@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, forkJoin } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +9,25 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class FavoriteService {
   private favoritePokemons = new BehaviorSubject<string[]>(this.loadFavorites());
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getFavorites(): Observable<string[]> {
     return this.favoritePokemons.asObservable();
+  }
+
+  getFavoriteDetails(): Observable<any[]> {
+    return this.favoritePokemons.pipe(
+      switchMap(favorites => {
+        const requests = favorites.map(name => 
+          this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        );
+        return forkJoin(requests);
+      }),
+      map(pokemons => pokemons.map((pokemon: any) => ({
+        name: pokemon.name,
+        image: pokemon.sprites.front_default
+      })))
+    );
   }
 
   addFavorite(pokemon: string): Observable<void> {
@@ -42,7 +59,6 @@ export class FavoriteService {
 
   private loadFavorites(): string[] {
     const favoritesString = localStorage.getItem('favoritePokemons');
-    console.log(favoritesString);
     if (favoritesString !== null) {
       return JSON.parse(favoritesString);
     } else {

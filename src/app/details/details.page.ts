@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
 import { FavoriteService } from '../services/favorite.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -15,7 +16,8 @@ export class DetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private location: Location
   ) { }
 
   async ngOnInit() {
@@ -40,6 +42,11 @@ export class DetailsPage implements OnInit {
         this.isFavorite = true;
       });
     }
+  }
+
+  
+  goBack(): void {
+    this.location.back();
   }
   
   

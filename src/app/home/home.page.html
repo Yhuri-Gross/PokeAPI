@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pokémon List</ion-title>
+    <img src="/src/assets/Pokedex_logo.png" alt="logo da pokedex">
     <ion-buttons slot="end" routerLink="/favorites">
       Favoritos
       <ion-button >
@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="grid-position">
+  <ion-grid [fixed]="true">
     <ion-row>
       <ion-col size="6" size-md="4" size-lg="4" *ngFor="let pokemon of pokemons">
         <ion-card  [routerLink]="['/details', pokemon.name]">
@@ -24,6 +24,6 @@
     </ion-row>
   </ion-grid>
   <div class="buttom-position">
-    <ion-button class="button-load" expand="block" (click)="loadMore()" [hidden]="!hasMoreResults()">Carregar Mais</ion-button>
+    <ion-button class="button-load" expand="block" (click)="loadMore()" [hidden]="!hasMoreResults()" fill="outline">Carregar Mais</ion-button>
   </div>
 </ion-content>

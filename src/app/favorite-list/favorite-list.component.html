@@ -1,13 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Favorites</ion-title>
+    <ion-title>Favoritos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let pokemon of favoritePokemons">
-      {{ pokemon }}
+      <img [src]="pokemon.image" alt="{{ pokemon.name }}">
+      <p>{{ pokemon.name }}</p>
     </ion-item>
   </ion-list>
+  <div class="buttom-position">
+    <ion-button  (click)="goBack()" class="button-back" fill="outline">Voltar</ion-button>
+  </div>
 </ion-content>
