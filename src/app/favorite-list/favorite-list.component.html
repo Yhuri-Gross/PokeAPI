@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let pokemon of favoritePokemons">
+    <ion-item class="item-background" *ngFor="let pokemon of favoritePokemons">
       <img [src]="pokemon.image" alt="{{ pokemon.name }}">
       <p>{{ pokemon.name }}</p>
     </ion-item>

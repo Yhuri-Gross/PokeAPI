@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon } from '../models/pokemon.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,10 @@ export class HomePage implements OnInit {
   offset: number = 0;
   totalResults: number = 0;
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadPokemons();
@@ -39,5 +43,9 @@ export class HomePage implements OnInit {
 
   hasMoreResults(): boolean {
     return this.pokemons.length < this.totalResults;
+  }
+
+  goToDetails(pokemonName: string) {
+    this.router.navigate(['/details', pokemonName]);
   }
 }

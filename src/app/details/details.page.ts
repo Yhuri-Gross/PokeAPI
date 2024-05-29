@@ -48,5 +48,9 @@ export class DetailsPage implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  getTypeClass(type: string): string {
+    return `type-${type.toLowerCase()}`;
+  }
   
 }
